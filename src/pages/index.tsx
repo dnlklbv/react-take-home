@@ -18,8 +18,8 @@ export const getServerSideProps = async (
 ) => {
   const session = await getServerSession(context.req, context.res, authOptions);
   const [gifs, saved] = await Promise.all([
-    fetch("http://localhost:3000/api/gif/feed").then((res) => res.json()),
-    fetch("http://localhost:3000/api/gif/getSaved", {
+    fetch(`${process.env.NEXT_APP_URL}/api/gif/feed`).then((res) => res.json()),
+    fetch(`${process.env.NEXT_APP_URL}/api/gif/getSaved`, {
       method: "POST",
       body: JSON.stringify({ userEmail: session?.user?.email }),
     }).then((res) => res.json()),
@@ -53,7 +53,7 @@ export default function Home({ gifs, saved }: Props) {
 
   const fetchSearchResults = async (searchValue: string) => {
     const res = await fetch(
-      `http://localhost:3000/api/gif/search?q=${searchValue}`
+      `/api/gif/search?q=${searchValue}`
     );
     const data = await res.json();
     setSearchResults(data);
@@ -87,12 +87,12 @@ export default function Home({ gifs, saved }: Props) {
           </label>
         )}
       </div>
-        <GifList
-          gifs={filteredGifs}
-          savedGifs={savedGifs}
-          setSavedGifs={setSavedGifs}
-          isAuthenticated={isAuthenticated}
-        />
+      <GifList
+        gifs={filteredGifs}
+        savedGifs={savedGifs}
+        setSavedGifs={setSavedGifs}
+        isAuthenticated={isAuthenticated}
+      />
     </main>
   );
 }

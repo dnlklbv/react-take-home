@@ -15,7 +15,7 @@ export function GifList({
   isAuthenticated,
 }: Props) {
   const handleSave = (gifId: string) => {
-    fetch("http://localhost:3000/api/gif/save", {
+    fetch(`/api/gif/save`, {
       method: "POST",
       body: JSON.stringify({
         gifId,
@@ -26,7 +26,7 @@ export function GifList({
   };
 
   const handleUnsave = (gifId: string) => {
-    fetch("http://localhost:3000/api/gif/unsave", {
+    fetch(`/api/gif/unsave`, {
       method: "POST",
       body: JSON.stringify({
         gifId: gifId,
